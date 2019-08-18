@@ -1,0 +1,49 @@
+{% extends "base_user.html" %}
+
+{% block title %}CardioUser - Login{% endblock %}
+
+{% block content %}
+    <div class="wrapper-page">
+            <div class="panel panel-color panel-primary panel-pages">
+                <div class="panel-heading bg-img"> 
+                    <div class="bg-overlay"></div>
+                    <h3 class="text-center m-t-10 text-white"> Connexion à <strong>CardioSN</strong> </h3>
+                </div> 
+
+
+                <div class="panel-body">
+                <form class="form-horizontal m-t-20" action="" method="POST">
+                    
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control input-lg" name="login" type="text" required="" placeholder="Nom d'utilisateur">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control input-lg" name="mdp" type="password" required="" placeholder="Mot de passe">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group text-center m-t-40">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" type="submit">Se connecter</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-t-30">
+                        <div class="col-sm-7">
+                            <a href="{% url 'cardiouser.forgot' %}"><i class="fa fa-lock m-r-5"></i> Mot de passe oublié ?</a>
+                        </div>
+                        <div class="col-sm-5 text-right">
+                            <a href="{% url 'cardiouser.register' %}">Faire une demande d'inscription</a>
+                        </div>
+                    </div>
+                </form> 
+                </div>                                 
+                
+            </div>
+        </div>
+{% endblock %}

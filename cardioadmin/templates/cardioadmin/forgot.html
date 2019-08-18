@@ -1,0 +1,35 @@
+{% extends "base_admin.html" %}
+
+{% load static %}
+
+{% block title %}
+    cardioadmin - forgot password
+{% endblock %}
+
+{% block content %}
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content" src="{% static 'cardioadmin/images/logo.png' %}" alt="">
+                    </a>
+                </div>
+                <div class="login-form">
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <label for="mail">Adresse email</label>
+                            <input type="email" name="mail" id="mail" class="form-control" placeholder="votre adresse email..."/>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-15">Valider</button>
+                        <a href="{% url 'cardioadmin.login' %}">Retour à l'accueil</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.body.className = 'bg-dark'
+    </script>
+{% endblock %}

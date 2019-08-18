@@ -1,0 +1,38 @@
+{% extends "base_user.html" %}
+
+{% block title %}CardioUser - Forgot{% endblock %}
+
+{% block content %}
+        <div class="wrapper-page">
+            <div class="panel panel-color panel-primary panel-pages">
+
+                <div class="panel-heading bg-img"> 
+                    <div class="bg-overlay"></div>
+                    <h3 class="text-center m-t-10 text-white"> Restaurer mot de passe </h3>
+                </div> 
+
+                <div class="panel-body">
+                 <form method="POST" action="" role="form" class="text-center"> 
+                 {% csrf_token %}
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        Saisissez votre adresse <b>Email</b> et des instructions vous seront envoyées!
+                    </div>
+                    <div class="form-group m-b-0"> 
+                        <div class="input-group input-group-lg"> 
+                            <input type="email" name="email" class="form-control" placeholder="Votre adresse email" required=""> 
+                            <span class="input-group-btn"> <button type="submit" class="btn btn-primary waves-effect waves-light">Restaurer</button> </span> 
+                        </div> 
+                    </div> 
+                    
+                    <br/>
+                    <div class="form-group m-b-0">
+                        <a href="{% url 'cardiouser.login' %}">Retour à l'accueil.</a>
+                    </div>
+                </form>
+
+                </div>                                 
+                
+            </div>
+        </div>
+{% endblock %}
