@@ -17,12 +17,13 @@
                 </div>
                 <div class="login-form">
                     <form method="POST" action="">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label for="mail">Adresse email</label>
                             <input type="email" name="mail" id="mail" class="form-control" placeholder="votre adresse email..."/>
                         </div>
                         <button type="submit" class="btn btn-primary btn-flat m-b-15">Valider</button>
-                        <a href="{% url 'cardioadmin.login' %}">Retour à l'accueil</a>
+                        <a href="{% url 'cardioadmin.connexion' %}">Retour à l'accueil</a>
                     </form>
                 </div>
             </div>
