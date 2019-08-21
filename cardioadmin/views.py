@@ -85,6 +85,8 @@ def ajout_user(request, user):
         admin = True
     return render(request, 'cardioadmin/ajout_user.html', {'admin': admin})
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='cardioadmin.connexion')
 def add_user(request):
     if request.method == 'GET':
         return redirect(home)
@@ -131,6 +133,7 @@ def edit_user(request, id):
 @login_required(login_url='cardioadmin.connexion')
 def update_user(request, id):
     user = User.objects.get(id=id)
+    old_mdp = user.password
     if request.method == 'GET':
         return redirect(home)
     elif request.method == 'POST':
@@ -145,7 +148,10 @@ def update_user(request, id):
                             user.username = form['pseudo']
                             user.first_name = form['prenom']
                             user.last_name = form['nom']
-                            user.set_password(form['mdp'])
+                            if(form['mdp'] == old_mdp):
+                                user.password = form['mdp']
+                            else:
+                                user.set_password(form['mdp'])
                             user.email = form['email']
                             user.is_superuser = form['user']
                             user.save()

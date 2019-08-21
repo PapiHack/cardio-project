@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 from django import forms
+import re
 
 # Create your views here.
 
@@ -18,7 +19,6 @@ def forgot(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='cardiouser.connexion')
 def home(request):
-    print(request.user)
     return render(request, 'cardiouser/home.html')
 
 def connexion(request):
@@ -46,3 +46,65 @@ def connexion(request):
 def deconnexion(request):
     logout(request)
     return redirect(connexion)
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='cardiouser.connexion')
+def profil(request):
+    user = User.objects.get(username=request.user)
+    return render(request, 'cardiouser/mon_profil.html', {'user': user})
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='cardiouser.connexion')
+def input_data(request):
+    return render(request, 'cardiouser/input_data.html')
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='cardiouser.connexion')
+def update_user(request, id):
+    user = User.objects.get(id=id)
+    old_mdp = user.password
+    if request.method == 'GET':
+        return redirect(home)
+    elif request.method == 'POST':
+        errors = dict()
+        formulaire = forms.Form(request.POST)
+        form = request.POST
+        if formulaire.is_valid():
+            if(re.match(regexMail, form['email'])):
+                if(not mail_exist_for_edit(form['email'], user.username)):
+                    if(not pseudo_exist_for_edit(form['pseudo'], user.username)):
+                        if(form['mdp'] == form['cmdp']):
+                            user.username = form['pseudo']
+                            user.first_name = form['prenom']
+                            user.last_name = form['nom']
+                            if(form['mdp'] == old_mdp):
+                                user.password = form['mdp']
+                            else:
+                                user.set_password(form['mdp'])
+                            user.email = form['email']
+                            user.is_superuser = form['user']
+                            user.save()
+                            return redirect(home)
+                        else:
+                            errors['mdp'] = 'Les mots de passes doivent être identiques.'
+                    else:
+                        errors['pseudo'] = 'Ce nom d\'utilisateur existe déjà.'
+                else:
+                    errors['mail'] = 'Cette adresse email existe déjà.'
+            else:
+                errors['mail'] = 'Adresse email invalide.'
+    return render(request, 'cardiouser/mon_profil.html', locals())
+
+def mail_exist_for_edit(mail, user):
+    users = User.objects.exclude(username=user)
+    for user in users:
+        if(mail == user.email):
+            return True
+    return False
+
+def pseudo_exist_for_edit(pseudo, user):
+    users = User.objects.exclude(username=user)
+    for user in users:
+        if(pseudo == user.username):
+            return True
+    return False

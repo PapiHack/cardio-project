@@ -1,18 +1,18 @@
-{% extends "cardioadmin/layout.html" %}
+{% extends "cardiouser/layout.html" %}
 
 {% load static %}
 
 {% block title %}
-    CardioAdmin - Mon profil
+    CardioUser - Mon profil
 {% endblock %}  
 
 {% block contenu %}
-    <div class="card">
-        <div class="card-header">
-            <strong>Mon Profil</strong>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Mon Profil</h3>
         </div>
-        <div class="card-body card-block">
-            <form action="{% url 'cardioadmin.update_user' user.id %}" method="post" class="form-horizontal">
+        <div class="panel-body">
+            <form action="{% url 'cardiouser.update_user' user.id %}" method="POST" class="form-horizontal">
                 {% csrf_token %}
                 <div class="row form-group">
                     <div class="col col-md-3">
@@ -68,14 +68,14 @@
                     </div>
                 </div>
 
-                 <input type="hidden" name="user" value="{{ user.is_superuser }}" />
+                 <input type="hidden" name="user" value="False" />
 
                 <div class="row form-group">
                     <div class="col col-md-3">
                     </div>
                     <div class="col-12 col-md-6">
                         <input type="submit" class="btn btn-success" value="Editer"/>
-                        <a class="btn btn-danger" href="{% url 'cardioadmin.home' %}">Annuler</a>
+                        <a class="btn btn-danger" href="{% url 'cardiouser.home' %}">Annuler</a>
                     </div>
                 </div>
             </form>

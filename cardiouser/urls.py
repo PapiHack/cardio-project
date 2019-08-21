@@ -7,4 +7,7 @@ urlpatterns = [
     path('logout', views.deconnexion, name="cardiouser.deconnexion"),
     path('forgot', views.forgot, name="cardiouser.forgot"),
     path('register', views.register, name="cardiouser.register"),
+    path('mon_profil', views.profil, name="cardiouser.profil"),
+    path('update_user/<int:id>', views.update_user, name="cardiouser.update_user"),
+    path('input_data', views.input_data, name="cardiouser.input_data"),
 ]
