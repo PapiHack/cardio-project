@@ -1,0 +1,68 @@
+{% extends "cardioadmin/layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    CardioAdmin - Gestion des utilisateurs
+{% endblock %}  
+
+{% block contenu %}
+  <div class="card">
+        <div class="card-body">
+            <h2>Gestion des utilisateurs.</h2> <br/>
+            <p><a class="btn btn-success" href="{% url 'cardioadmin.ajout_user' 'user' %}"><i class="fa fa-user-plus"></i> Ajouter un utilisateur</a></p>
+        </div>
+        {% if users|length != 0 %}
+            <div class="col-md-11">
+                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>email</th>
+                            <th>login</th>
+                            <th>Opérations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.username }}</td>
+                                <td><a class="btn btn-warning" title="Editer" href="{% url 'cardioadmin.edit_user' user.id %}"><i class="fa fa-edit"></i></a> <a class="btn btn-danger sup" href="{% url 'cardioadmin.supprimer_user' user.id %}" title="Supprimer"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <h3>&nbsp;&nbsp;Pas encore d'utilisateurs.</h3>
+        {% endif %}
+    </div>
+
+    <style>
+        h2{
+            text-decoration: underline;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+      } );
+    </script>
+
+    <script>
+      var users = document.getElementsByClassName('sup')
+
+      for(var i = 0; i < users.length; i++)
+      {
+          users[i].onclick = function(event){
+              if(!confirm('Voulez-vous vraiment supprimé cet utilisateur ?'))
+              {
+                  event.preventDefault()
+              }
+          }
+      }
+    </script>
+{% endblock  %}

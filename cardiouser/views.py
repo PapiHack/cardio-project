@@ -30,11 +30,11 @@ def connexion(request):
             username = form['login']
             mdp = form['mdp']
             try:
-                admin = User.objects.get(username=username)
+                p_user = User.objects.get(username=username)
             except:
-                admin = False
+                p_user = False
             user = authenticate(request, username=username, password=mdp)
-            if user is not None and user.is_active and admin is not False:
+            if user is not None and p_user.is_superuser is False:
                 login(request, user)
                 return redirect(home)
             else:

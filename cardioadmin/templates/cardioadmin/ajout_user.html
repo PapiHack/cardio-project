@@ -1,0 +1,84 @@
+{% extends "cardioadmin/layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    CardioAdmin - Ajout user
+{% endblock %}  
+
+{% block contenu %}
+    <div class="card">
+        <div class="card-header">
+            <strong>Ajout</strong> d'un{% if admin %} administrateur {% else %} utilisateur {% endif %}
+        </div>
+        <div class="card-body card-block">
+            <form action="{% url 'cardioadmin.add_user' %}" method="post" class="form-horizontal">
+                {% csrf_token %}
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="nom" class=" form-control-label">Nom</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" id="nom" {% if data %}value="{{ data.nom }}"{% endif %} name="nom" placeholder="Saisir votre nom" class="form-control"><span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="prenom" class=" form-control-label">Prénom</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" id="prenom" {% if data %}value="{{ data.prenom }}"{% endif %} name="prenom" placeholder="Saisir votre prenom" class="form-control"><span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="email" class=" form-control-label">Email</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="email" id="email" {% if data %}value="{{ data.email }}"{% endif %} name="email" placeholder="Saisir votre adresse email" class="form-control"><span class="help-block" style="color: red;">{{ errors.mail }}</span>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="pseudo" class=" form-control-label">Pseudo</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" id="pseudo" {% if data %}value="{{ data.pseudo }}"{% endif %} name="pseudo" placeholder="Saisir votre pseudo" class="form-control"><span class="help-block" style="color: red;">{{ errors.pseudo }}</span>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="mdp" class=" form-control-label">Mot de passe</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="password" id="mdp" {% if data %}value="{{ data.mdp }}"{% endif %} name="mdp" placeholder="Saisir votre mot de passe" class="form-control"><span class="help-block" style="color: red;">{{ errors.mdp }}</span>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                        <label for="cmdp" class=" form-control-label">Confirmer mot de passe</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="password" id="cmdp" {% if data %}value="{{ data.cmdp }}"{% endif %} name="cmdp" placeholder="Saisir à nouveau votre mot de passe" class="form-control"><span class="help-block" style="color: red;">{{ errors.mdp }}</span>
+                    </div>
+                </div>
+
+                    <input type="hidden" name="user" value="{% if admin %}True{% else %}False{% endif %}">
+
+                <div class="row form-group">
+                    <div class="col col-md-3">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="submit" class="btn btn-success" value="Ajouter"/>
+                        <a class="btn btn-danger" href="{% url 'cardioadmin.home' %}">Annuler</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
