@@ -101,7 +101,7 @@ def add_user(request):
                             user.username = form['pseudo']
                             user.first_name = form['prenom']
                             user.last_name = form['nom']
-                            user.password = form['mdp']
+                            user.set_password(form['mdp'])
                             user.email = form['email']
                             user.is_superuser = form['user']
                             user.save()
@@ -145,7 +145,7 @@ def update_user(request, id):
                             user.username = form['pseudo']
                             user.first_name = form['prenom']
                             user.last_name = form['nom']
-                            user.password = form['mdp']
+                            user.set_password(form['mdp'])
                             user.email = form['email']
                             user.is_superuser = form['user']
                             user.save()
