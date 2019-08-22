@@ -110,7 +110,8 @@ def add_user(request):
                             user.email = form['email']
                             user.is_superuser = form['user']
                             user.save()
-                            if(user.is_superuser):
+                            superuser = form['user']
+                            if(superuser):
                                 link = request.build_absolute_uri(reverse(connexion, None))
                                 template = loader.get_template('cardioadmin/mailNewUser.txt')
                                 t = template.render({'nom':user.last_name, 'prenom':user.first_name, 'link':link, 'statut':'Administrateur', 'login': user.username, 'mdp': form['mdp']})
@@ -119,7 +120,7 @@ def add_user(request):
                                 import cardiouser
                                 link = request.build_absolute_uri(reverse(cardiouser.views.connexion, None))
                                 template = loader.get_template('cardioadmin/mailNewUser.txt')
-                                t = template.render({'nom':user.last_name, 'prenom':user.first_name, 'link':link, 'statut':'utilisateur', 'login': user.username, 'mdp': form['mdp']})
+                                t = template.render({'nom':user.last_name, 'prenom':user.first_name, 'link':link, 'statut':'Utilisateur', 'login': user.username, 'mdp': form['mdp']})
                                 send_mail('Vos informations d\'authentification', t, '', [user.email,], fail_silently=True)
                             #Envoyer les infos par mail au user
                             if(user.is_superuser):
