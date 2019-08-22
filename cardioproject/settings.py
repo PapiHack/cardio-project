@@ -25,7 +25,7 @@ SECRET_KEY = 'l8nux5#2sy!jdn+f@5thz7-#qg5*%#m4)xe%7f+*c7kucp)y#d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sencardio.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
