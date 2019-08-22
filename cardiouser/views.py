@@ -6,6 +6,10 @@ from django.views.decorators.cache import cache_control
 from django import forms
 import re
 from .models import DataToAnalyze
+from biosppy import storage
+from biosppy.signals import ecg
+from cardioproject.settings import BASE_DIR
+import os
 
 # Create your views here.
 
@@ -73,7 +77,9 @@ def upload_and_analyze(request):
             data_to_analyze.dataset = request.FILES['dataset']
             data_to_analyze.save()
             #Faire l'analyse, affichage des graphes et tout le tralala ici
-            return redirect(home)
+            signal, mdata = storage.load_txt(os.path.join(BASE_DIR, 'media/' + str(data_to_analyze.dataset)))
+            out = ecg.ecg(signal=signal, sampling_rate=1000., show=True)
+            #return redirect(home)
     return redirect(home)
 
 
