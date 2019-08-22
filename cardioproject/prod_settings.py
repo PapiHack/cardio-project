@@ -1,9 +1,14 @@
 from .settings import *
+import dj_database_url
+
+DATABASES['default'] = dj_database_url.config()
 
 DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-SECRET_KEY = 'd+ampxl=ljg+^p-y3sir%ml@%09+f78dz=d*-_@z6ds@m!waza'
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = ['sencardio.herokuapp.com']
