@@ -1,1 +1,1 @@
-web: gunicorn cardioproject.wsgi --log-file
+web: gunicorn cardioproject.wsgi --log-file-
