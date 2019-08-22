@@ -9,31 +9,26 @@
         <div class="container">
              <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="pull-left page-title">Veuillez glissez votre jeu de données dans l'espace ci-dessous.</h4>
+                    <h4 class="pull-left page-title">Veuillez Spécifier votre jeu de données en cliquant sur le boutton ci-dessous.</h4>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-12 portlets">
-                    <!-- Your awesome content goes here -->
-                    <div class="m-b-30">
-                        <form action="#" class="dropzone" id="dropzone">
-                            {% csrf_token %}
-                            <div class="fallback">
-                                <input name="file" type="file"/>
-                            </div>
-                        </form>
+                <form class="md-form" action="{% url 'cardiouser.upload_and_analyze' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="upload-btn-wrapper">
+                        <button class="btn">Téléchargez un fichier</button>
+                        <input type="file" name="dataset" /> 
                     </div>
-
-                <div class="row form-group">
-                    <div class="col col-md-5">
+                        <br/>
+                    <br/>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <input type="submit" value="Validez" class="btn btn-success"/>
+                        </div>
+                            <a class="btn btn-danger" href="{% url 'cardiouser.home' %}">Annuler</a>
                     </div>
-                    <div class="col-6 col-md-6">
-                        <button id="submit" class="btn btn-success">Validez</button>
-                        <a class="btn btn-danger" href="{% url 'cardiouser.home' %}">Annuler</a>
-                    </div>
-                </div>
-                </div>
+                </form>
             </div>
             <!-- end row -->
 
@@ -41,5 +36,31 @@
         </div> <!-- container -->
                                
     </div> <!-- content -->
+
+    <style>
+        .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        }
+
+        .btn {
+        border: 2px solid gray;
+        color: gray;
+        background-color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+        }
+
+        .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        }
+    </style>
 {% endblock %}
 

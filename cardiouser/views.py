@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 from django import forms
 import re
+from .models import DataToAnalyze
 
 # Create your views here.
 
@@ -57,6 +58,25 @@ def profil(request):
 @login_required(login_url='cardiouser.connexion')
 def input_data(request):
     return render(request, 'cardiouser/input_data.html')
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='cardiouser.connexion')
+def upload_and_analyze(request):
+    user = User.objects.get(username=request.user)
+    id_user = user.id
+    if request.method == 'POST':
+        formulaire = forms.Form(request.POST, request.FILES)
+        print(request.FILES['dataset'])
+        if formulaire.is_valid():
+            data_to_analyze = DataToAnalyze()
+            data_to_analyze.user = id_user
+            data_to_analyze.dataset = request.FILES['dataset']
+            data_to_analyze.save()
+            #Faire l'analyse, affichage des graphes et tout le tralala ici
+            return redirect(home)
+    return redirect(home)
+
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='cardiouser.connexion')

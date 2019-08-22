@@ -10,4 +10,5 @@ urlpatterns = [
     path('mon_profil', views.profil, name="cardiouser.profil"),
     path('update_user/<int:id>', views.update_user, name="cardiouser.update_user"),
     path('input_data', views.input_data, name="cardiouser.input_data"),
+    path('analyze_data', views.upload_and_analyze, name="cardiouser.upload_and_analyze"),
 ]
