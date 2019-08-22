@@ -1,0 +1,1 @@
+web: gunicorn cardioproject.wsgi --log-file

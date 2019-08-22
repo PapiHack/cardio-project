@@ -2,6 +2,7 @@ bidict==0.18.0
 biosppy==0.6.1
 cycler==0.10.0
 Django==2.2.4
+gunicorn==19.9.0
 h5py==2.9.0
 heartpy==1.1.7
 joblib==0.13.2
@@ -9,7 +10,6 @@ kiwisolver==1.1.0
 matplotlib==3.1.1
 numpy==1.17.0
 pandas==0.25.0
-pkg-resources==0.0.0
 pyparsing==2.4.2
 python-dateutil==2.8.0
 pytz==2019.2
