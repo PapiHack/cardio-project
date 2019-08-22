@@ -8,4 +8,6 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+
 ALLOWED_HOSTS = ['sencardio.herokuapp.com']
