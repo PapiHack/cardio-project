@@ -1,0 +1,12 @@
+Bonjour/Bonsoir {{ prenom }} {{ nom }}.
+Vous venez d'être ajouté à la plateforme d'analyse de la variabilité de la fréquence 
+cardiaque en tant que {{ statut }}.
+Voici vos informations d'authentification :
+Nom d'utilisateur: {{ login }}
+Mot de passe:      {{ mdp }}
+Vous pouvez suivre ce lien afin de vous connecter à l'application et changer ces informations si vous le souhaiter.
+
+{{ link }}
+
+Cordialement.
+SenCardio : plateforme d'analyse de la variabilité de la fréquence cardiaque.

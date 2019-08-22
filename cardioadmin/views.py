@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 from django import forms
 import re
+from django.core.mail import send_mail
+from django.template import loader
+from django.urls import reverse
 
 # Create your views here.
 
@@ -107,8 +110,19 @@ def add_user(request):
                             user.email = form['email']
                             user.is_superuser = form['user']
                             user.save()
+                            if(user.is_superuser):
+                                link = request.build_absolute_uri(reverse(connexion, None))
+                                template = loader.get_template('cardioadmin/mailNewUser.txt')
+                                t = template.render({'nom':user.last_name, 'prenom':user.first_name, 'link':link, 'statut':'Administrateur', 'login': user.username, 'mdp': form['mdp']})
+                                send_mail('Vos informations d\'authentification', t, '', [user.email,], fail_silently=True)
+                            else:
+                                import cardiouser
+                                link = request.build_absolute_uri(reverse(cardiouser.views.connexion, None))
+                                template = loader.get_template('cardioadmin/mailNewUser.txt')
+                                t = template.render({'nom':user.last_name, 'prenom':user.first_name, 'link':link, 'statut':'utilisateur', 'login': user.username, 'mdp': form['mdp']})
+                                send_mail('Vos informations d\'authentification', t, '', [user.email,], fail_silently=True)
                             #Envoyer les infos par mail au user
-                            if(form['user'] is True):
+                            if(user.is_superuser):
                                 return redirect(gestion_admin)
                             else:
                                 return redirect(gestion_user)
@@ -156,7 +170,7 @@ def update_user(request, id):
                             user.is_superuser = form['user']
                             user.save()
                             #Envoyer les infos par mail au user
-                            if(form['user'] is True):
+                            if(user.is_superuser):
                                 return redirect(gestion_admin)
                             else:
                                 return redirect(gestion_user)
