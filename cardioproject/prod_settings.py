@@ -1,4 +1,4 @@
-from .settingsimport *
+from .settings import *
 
 DEBUG = False
 
