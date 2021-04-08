@@ -2,7 +2,7 @@ bidict==0.18.0
 biosppy==0.6.1
 cycler==0.10.0
 dj-database-url==0.5.0
-Django==2.2.18
+Django==2.2.20
 gunicorn==19.9.0
 h5py==2.9.0
 heartpy==1.1.7
